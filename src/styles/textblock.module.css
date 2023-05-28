@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "PantasiaUnlicensedTrial";
+  src: url("../assets/fonts/PantasiaUnlicensedTrial-Regular.otf") format("otf"),
+    url("../assets/fonts/PantasiaUnlicensedTrial-Regular.woff2") format("woff2"),
+    url("../assets/fonts/PantasiaUnlicensedTrial-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.row {
+  white-space: nowrap;
+}
+
+.text {
+  font-family: "PantasiaUnlicensedTrial";
+  font-size: 12px;
+  margin-top: 10px;
+}
