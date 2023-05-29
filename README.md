@@ -1,6 +1,6 @@
 # yop
 
-An experiment in text highlighting, recreation of [Sasha](https://fichtre.net/yop.html). Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
+An experiment in text highlighting, recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html). Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
 
 ## Development
 
