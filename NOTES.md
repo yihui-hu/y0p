@@ -1,4 +1,4 @@
-## 28 May 2023 11:23pm
+## 28 May 2023 – 11:23pm
 
 ### User flow / make up of website:
 
@@ -6,7 +6,7 @@
 2. Open modal to upload own text + image w/ live preview (to be determined: ::selection pseudo element in live preview...)
 3. Ability to download the static HTML + CSS files from the modal for own use
 
-## 29 May 8:03am
+## 29 May 2023 – 8:03am
 
 ### Synchronizing live preview + preparation of static HTML + CSS files
 
