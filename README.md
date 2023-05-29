@@ -1,5 +1,21 @@
 # yop
 
+An experiment in text highlighting, recreation of [Sasha](https://fichtre.net/yop.html). Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
+
+## Development
+
+```bash
+# clone project
+git clone https://github.com/yihui-hu/yop
+cd yop
+
+# install dependencies
+npm install
+
+# run project
+npm run dev
+```
+
 ## Resources
 
 1. [Importing text file](https://stackoverflow.com/questions/50539756/how-to-import-a-txt-file-from-my-source)
