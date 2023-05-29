@@ -9,3 +9,4 @@
 - [x] Map each text as its own span
 - [ ] Attach custom styles to each span corresponding to pixel value
 - [ ] Automatically repeat text to match image ratio
+- [ ] Get rid of duplicate pixel values

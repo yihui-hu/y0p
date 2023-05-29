@@ -1,23 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import sampleText from "@samples/sampleText";
 import styles from "@styles/modal.module.css";
 import { ModalProps } from "@interfaces/";
 
-export default function Modal(props: ModalProps) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [image, setImage] = useState("");
-  const [textInput, setTextInput] = useState("");
+const Modal: React.FC<ModalProps> = (props: ModalProps) => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [textInput, setTextInput] = useState<string>("");
 
   function toggleModal() {
     setModalOpen((modalOpen) => !modalOpen);
   }
 
+  function handleImageUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   function updateImageAndText(e: any) {
     e.preventDefault();
     props.updateText(textInput);
-    props.updateImage();
+    props.updateImage(imageSrc);
   }
 
   return (
@@ -30,9 +42,10 @@ export default function Modal(props: ModalProps) {
           <form className={styles.modalForm}>
             <input
               type="file"
+              accept="image/*"
               id="myFile"
               name="filename"
-              onChange={(e) => setImage("")}
+              onChange={handleImageUpload}
             />
             <textarea
               className={styles.modalInput}
@@ -53,4 +66,6 @@ export default function Modal(props: ModalProps) {
       )}
     </>
   );
-}
+};
+
+export default Modal;

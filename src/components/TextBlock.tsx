@@ -1,7 +1,8 @@
+import React from "react";
 import styles from "@styles/textblock.module.css";
 import { TextBlockProps, Pixel } from "@interfaces/";
 
-export default function TextBlock(props: TextBlockProps) {
+const TextBlock: React.FC<TextBlockProps> = (props: TextBlockProps) => {
   let text: string[] = props.text.split("");
   let image: Pixel[] = props.image;
 
@@ -14,10 +15,24 @@ export default function TextBlock(props: TextBlockProps) {
         {rowCharacters.map((character, index) => {
           const pixel_index: number = i + index;
 
-          // construct style heer
-          
+          const background_color = `rgb(${image[pixel_index]?.r ?? 255}, 
+                                        ${image[pixel_index]?.g ?? 255}, 
+                                        ${image[pixel_index]?.b ?? 255})`;
+            
+          const color = `rgb(${255 - (image[pixel_index]?.r ?? 255)}, 
+                             ${255 - (image[pixel_index]?.g ?? 255)}, 
+                             ${255 - (image[pixel_index]?.b ?? 255)})`;
+
+          const style = {
+            // ::selection {
+
+            // }
+            "background-color": background_color,
+            "color": color,
+          };
+
           return (
-            <span className={pixel_index.toString()} key={index}>
+            <span style={style} key={index} className={index.toString()}>
               {character}
             </span>
           );
@@ -30,3 +45,5 @@ export default function TextBlock(props: TextBlockProps) {
 
   return <div className={styles.text}>{rows}</div>;
 }
+
+export default TextBlock;

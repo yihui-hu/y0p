@@ -24,7 +24,7 @@
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
-      "@samples/*": ["./src/assets/samples/*"],
+      "@samples/*": ["./public/samples/*"],
       "@interfaces/": ["./src/interfaces/index.ts"]
     }
   },

@@ -2,7 +2,6 @@ export interface Pixel {
   r: number,
   g: number,
   b: number,
-  alpha: number,
 }
 
 export interface TextBlockProps {
@@ -12,6 +11,6 @@ export interface TextBlockProps {
 
 export interface ModalProps {
   updateText: (text: string) => void;
-  updateImage: (image: Pixel[]) => void;
+  updateImage: (src: any) => void;
 }
 
