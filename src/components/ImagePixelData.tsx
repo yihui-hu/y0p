@@ -15,8 +15,6 @@ const ImagePixelData: React.FC<Props> = ({ imagePath, targetWidth, updateImagePi
       const image = new Image();
       image.src = imagePath;
 
-      console.log(image);
-
       image.onload = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
