@@ -38,49 +38,29 @@ const Home: React.FC = () => {
     generateCSSStylesheet(pixels);
   }
 
-  // useEffect(() => {
-  //   console.log("creating style");
-  //   // Create a style element
-  //   const styleElement = document.createElement("style");
-
-  //   // Define the CSS rules
-  //   const cssRules = `
-  //     .body {
-  //       color: red !important;
-  //       font-size: 18px;
-  //     }
-  //   `;
-
-  //   // Set the CSS rules as text content of the style element
-  //   styleElement.textContent = cssRules;
-
-  //   // Append the style element to the document's head
-  //   document.head.appendChild(styleElement);
-  // }, []);
-
-  // function createStylesheet(pixels: Pixel[]) {
-  //   const uniqueColors = new Set<string>();
-  //   for (let i = 0; i < pixels.length; i++) {
-  //     const color =
-  //       "pixel-" +
-  //       pixels[i].r.toString() +
-  //       "-" +
-  //       pixels[i].g.toString() +
-  //       "-" +
-  //       pixels[i].b.toString();
-  //     uniqueColors.add(color);
-  //   }
-
-  //   const colorArray = Array.from(uniqueColors);
-  //   console.log(colorArray);
-  // }
-
   const generateCSSStylesheet = (pixels: Pixel[]): void => {
-    // Create the CSS rules based on the pixels array
-    const cssRules = pixels
+    const uniqueColors = new Set<string>();
+    pixels.forEach((p) => {
+      const pixelColor = `p-${p.r}-${p.g}-${p.b}`;
+      uniqueColors.add(pixelColor);
+    })
+    const colorsArray = Array.from(uniqueColors);
+
+    console.log(colorsArray);
+
+    const cssRules = colorsArray
       .map((pixel, index) => {
-        const { r, g, b } = pixel;
-        return `.pixel-${r}-${g}-${b} { background-color: rgb(${r}, ${g}, ${b}); }`;
+        const splitPixel = pixel.split("-");
+        const r = splitPixel[1]
+        const g = splitPixel[2]
+        const b = splitPixel[3]
+        const r_inverse = (255 - parseInt(r)).toString();
+        const g_inverse = (255 - parseInt(g)).toString();
+        const b_inverse = (255 - parseInt(b)).toString();
+        return `.p-${r}-${g}-${b}::selection { 
+                  color: rgb(${r_inverse}, ${g_inverse}, ${b_inverse});
+                  background-color: rgb(${r}, ${g}, ${b}); 
+                }`;
       })
       .join("\n");
 
