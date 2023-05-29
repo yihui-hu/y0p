@@ -13,26 +13,10 @@ const TextBlock: React.FC<TextBlockProps> = (props: TextBlockProps) => {
     const row = (
       <div className={styles.row} key={i}>
         {rowCharacters.map((character, index) => {
-          const pixel_index: number = i + index;
-
-          const background_color = `rgb(${image[pixel_index]?.r ?? 255}, 
-                                        ${image[pixel_index]?.g ?? 255}, 
-                                        ${image[pixel_index]?.b ?? 255})`;
-            
-          const color = `rgb(${255 - (image[pixel_index]?.r ?? 255)}, 
-                             ${255 - (image[pixel_index]?.g ?? 255)}, 
-                             ${255 - (image[pixel_index]?.b ?? 255)})`;
-
-          const style = {
-            // ::selection {
-
-            // }
-            "background-color": background_color,
-            "color": color,
-          };
+          const { r, g, b } = image[i + index] ?? { r: 255, g: 255, b: 255 };
 
           return (
-            <span style={style} key={index} className={index.toString()}>
+            <span key={index} className={`p-${r}-${g}-${b}`}>
               {character}
             </span>
           );
