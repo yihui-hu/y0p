@@ -1,13 +1,12 @@
 "use client";
 
 import React, { ChangeEvent, useState } from "react";
-import sampleText from "@samples/sampleText";
-import styles from "@styles/modal.module.css";
-import { ModalProps } from "@interfaces/";
+import sampleText from "@/samples/sampleText";
+import styles from "@/styles/modal.module.css";
+import { ModalProps } from "@/interfaces/";
 
-const Modal: React.FC<ModalProps> = (props: ModalProps) => {
+const Modal: React.FC<ModalProps> = ({ setText, setImageSrc, loading }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [textInput, setTextInput] = useState<string>("");
 
   function toggleModal() {
@@ -19,17 +18,14 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        setImageSrc(reader.result as string);
-      };
+      reader.onload = () => setImageSrc(reader.result as string);
       reader.readAsDataURL(file);
     }
   }
 
-  function updateImageAndText(e: any) {
+  function updateText(e: any) {
     e.preventDefault();
-    props.updateText(textInput);
-    props.updateImage(imageSrc);
+    if (textInput !== "") setText(textInput);
   }
 
   return (
@@ -43,8 +39,6 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
             <input
               type="file"
               accept="image/*"
-              id="myFile"
-              name="filename"
               onChange={handleImageUpload}
             />
             <textarea
@@ -57,9 +51,10 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
             />
             <button
               className={styles.modalUpdateButton}
-              onClick={(e) => updateImageAndText(e)}
+              onClick={(e) => updateText(e)}
+              disabled={loading ? true : false}
             >
-              Update
+              Update text
             </button>
           </form>
         </div>

@@ -1,14 +1,14 @@
 import React from "react";
-import styles from "@styles/textblock.module.css";
-import { TextBlockProps, Pixel } from "@interfaces/";
+import styles from "@/styles/textblock.module.css";
+import { TextBlockProps, Pixel } from "@/interfaces/";
 
 const TextBlock: React.FC<TextBlockProps> = (props: TextBlockProps) => {
   let text: string[] = props.text.split("");
   let image: Pixel[] = props.image;
 
   const rows = [];
-  for (let i = 0; i < text.length; i += 160) {
-    const rowCharacters = text.slice(i, i + 160);
+  for (let i = 0; i < text.length; i += 180) {
+    const rowCharacters = text.slice(i, i + 180);
 
     const row = (
       <div className={styles.row} key={i}>

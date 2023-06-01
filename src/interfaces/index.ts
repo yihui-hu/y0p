@@ -4,13 +4,26 @@ export interface Pixel {
   b: number,
 }
 
+export interface ImageData {
+  pixels: Pixel[],
+  imageWidth: number,
+  imageHeight: number,
+}
+
+export enum TextStyle {
+  TRANSPARENT,
+  COMPLEMENTARY,
+  INVERSE
+}
+
 export interface TextBlockProps {
   text: string;
   image: Pixel[];
 }
 
 export interface ModalProps {
-  updateText: (text: string) => void;
-  updateImage: (src: any) => void;
+  setText: (text: string) => void;
+  setImageSrc: (src: any) => void;
+  loading: boolean;
 }
 

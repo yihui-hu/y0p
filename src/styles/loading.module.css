@@ -1,0 +1,11 @@
+.loadingContainer {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.loadingText {
+  font-size: 12px;
+  font-weight: normal;
+}
