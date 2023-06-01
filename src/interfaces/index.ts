@@ -12,8 +12,8 @@ export interface ImageData {
 
 export enum TextStyle {
   TRANSPARENT,
-  COMPLEMENTARY,
-  INVERSE
+  INVERTED,
+  VEILED
 }
 
 export interface TextBlockProps {
@@ -24,6 +24,8 @@ export interface TextBlockProps {
 export interface ModalProps {
   setText: (text: string) => void;
   setImageSrc: (src: any) => void;
+  setTextStyle: (style: TextStyle) => void;
   loading: boolean;
+  filesURL: string;
 }
 

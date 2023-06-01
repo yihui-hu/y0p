@@ -1,6 +1,5 @@
 import { ImageData, Pixel } from "@/interfaces/";
 
-// @TODO: getImageData
 // @TODO: determine image size logic here
 const getImageData = async (imageUrl: string): Promise<ImageData> => {
   try { 
@@ -10,14 +9,13 @@ const getImageData = async (imageUrl: string): Promise<ImageData> => {
   
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-  
-    console.log(imageBitmap.width, imageBitmap.height);
+
+    console.log(window.innerHeight);
+    console.log(window.innerWidth);
 
     const aspectRatio = imageBitmap.width / imageBitmap.height;
     const targetWidth = 180;
     const targetHeight = Math.floor(targetWidth / aspectRatio);
-
-    console.log(targetWidth, targetHeight);
     
     canvas.width = targetWidth;
     canvas.height = targetHeight;

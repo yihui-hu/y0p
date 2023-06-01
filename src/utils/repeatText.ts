@@ -9,7 +9,7 @@ const repeatText = (
       text += " ";
       text += text;
     }
-    text = text.slice(0, length - 3) + "... ";
+    text = text.slice(0, length - 3) + "...";
     resolve(text);
   });
 };
