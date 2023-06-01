@@ -1,13 +1,21 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useRef } from "react";
 import sampleText from "@/samples/sampleText";
 import styles from "@/styles/modal.module.css";
-import { ModalProps } from "@/interfaces/";
+import { ModalProps, TextStyle } from "@/interfaces/";
 
-const Modal: React.FC<ModalProps> = ({ setText, setImageSrc, loading }) => {
+const Modal: React.FC<ModalProps> = ({
+  setText,
+  setImageSrc,
+  setTextStyle,
+  loading,
+  filesURL,
+}) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [textInput, setTextInput] = useState<string>("");
+
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   function toggleModal() {
     setModalOpen((modalOpen) => !modalOpen);
@@ -28,18 +36,71 @@ const Modal: React.FC<ModalProps> = ({ setText, setImageSrc, loading }) => {
     if (textInput !== "") setText(textInput);
   }
 
+  function updateTextStyle(textStyle: string) {
+    switch (textStyle) {
+      case "transparent":
+        setTextStyle(TextStyle.TRANSPARENT);
+        break;
+      case "inverse":
+        setTextStyle(TextStyle.INVERTED);
+        break;
+      case "veiled":
+        setTextStyle(TextStyle.VEILED);
+        break;
+      default:
+        setTextStyle(TextStyle.TRANSPARENT);
+        break;
+    }
+  }
+  
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    hiddenFileInput.current?.click();
+  };
+
+  function getStaticFiles(e: any) {
+    e.preventDefault();
+
+    // Create a link element to download the CSS file
+    const linkElement = document.createElement("a");
+    linkElement.href = filesURL;
+    linkElement.download = "pixels.css";
+
+    // Simulate a click event to trigger the download
+    linkElement.click();
+
+    const htmlBlob = new Blob([document.documentElement.outerHTML], {
+      type: "text/html",
+    });
+    const htmlURL = URL.createObjectURL(htmlBlob);
+    const linkElement2 = document.createElement("a");
+    linkElement2.href = htmlURL;
+    linkElement2.download = "index.html";
+
+    // Simulate a click event to trigger the download
+    linkElement2.click();
+  }
+
   return (
     <>
-      <button className={styles.modalButton} onClick={toggleModal}>
+      <button className={styles.modalToggle} onClick={toggleModal}>
         i
       </button>
       {modalOpen && (
         <div className={styles.modalContainer}>
           <form className={styles.modalForm}>
+            <button
+              className={styles.modalButton}
+              onClick={(e) => handleClick(e)}
+            >
+              Upload image
+            </button>
             <input
+              style={{ display: "none" }}
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
+              ref={hiddenFileInput}
             />
             <textarea
               className={styles.modalInput}
@@ -49,12 +110,27 @@ const Modal: React.FC<ModalProps> = ({ setText, setImageSrc, loading }) => {
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
             />
+            <select
+              id="dropdown"
+              onChange={(e) => updateTextStyle(e.target.value)}
+            >
+              <option value="transparent">Transparent</option>
+              <option value="inverse">Inverted</option>
+              <option value="veiled">Veiled</option>
+            </select>
             <button
-              className={styles.modalUpdateButton}
+              className={styles.modalButton}
               onClick={(e) => updateText(e)}
               disabled={loading ? true : false}
             >
               Update text
+            </button>
+            <button
+              className={styles.modalButton}
+              onClick={(e) => getStaticFiles(e)}
+              disabled={loading ? true : false}
+            >
+              Download static files
             </button>
           </form>
         </div>

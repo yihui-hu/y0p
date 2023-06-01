@@ -19,17 +19,17 @@ const Home: React.FC = () => {
   const [imageHeight, setImageHeight] = useState<number>(0);
   const [textStyle, setTextStyle] = useState<TextStyle>(TextStyle.TRANSPARENT);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filesURL, setFilesURL] = useState<string>("");
 
   useEffect(() => {
     setLoading(true);
 
     const getPixels = async () => {
-      // @TODO: update imageHeight here so that it will change in text
       const imageData = await getImageData(imageSrc);
       setImagePixels(imageData.pixels);
       setImageHeight(imageData.imageHeight);
       setImageWidth(imageData.imageWidth);
-      await generateCSS(imageData.pixels);
+      await generateCSS(imageData.pixels, textStyle, setFilesURL);
       setLoading(false);
     };
 
@@ -39,20 +39,33 @@ const Home: React.FC = () => {
   useEffect(() => {
     setLoading(true);
 
+    const updateTextStyle = async () => {
+      await generateCSS(imagePixels, textStyle, setFilesURL);
+      setLoading(false);
+    };
+
+    updateTextStyle();
+  }, [textStyle]);
+
+  useEffect(() => {
     const updateText = async () => {
-      // @TODO: change based on imageHeight as well
       const newText = await repeatText(text, imageWidth, imageHeight);
       setText(newText);
-      setLoading(false);
-    }
+    };
 
     updateText();
-  }, [text, imageHeight]);
+  }, [text, imageWidth, imageHeight]);
 
   return (
     <main className={PantasiaUnlicensedTrial.className}>
-      <Modal setText={setText} setImageSrc={setImageSrc} loading={loading}/>
-      { loading ? <Loading /> : <TextBlock text={text} image={imagePixels} /> }
+      <Modal
+        setText={setText}
+        setImageSrc={setImageSrc}
+        setTextStyle={setTextStyle}
+        filesURL={filesURL}
+        loading={loading}
+      />
+      {loading ? <Loading /> : <TextBlock text={text} image={imagePixels} />}
     </main>
   );
 };

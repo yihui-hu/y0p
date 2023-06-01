@@ -1,4 +1,4 @@
-.modalButton {
+.modalToggle {
   width: 40px;
   height: 40px;
   position: fixed;
@@ -7,6 +7,7 @@
   border: 0px solid black;
   border-radius: 100px;
   color: black;
+  background-color: #EFEFEF;
   cursor: pointer;
 }
 
@@ -43,6 +44,13 @@
   color: rgb(195, 195, 195);
 }
 
-.modalUpdateButton {
+.modalButton {
   padding-block: 3px;
+  border: 1px solid rgb(195, 195, 195);
+  background-color: #EFEFEF;
+  cursor: pointer;
+}
+
+.modalButton:hover {
+  border: 1px solid rgb(170, 170, 170);
 }
