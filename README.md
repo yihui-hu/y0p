@@ -29,3 +29,5 @@ npm run dev
 5. [Showing leading and trailing whitespace in HTML](https://stackoverflow.com/questions/38051561/show-white-space-at-the-beginning-of-a-text-in-html)
 6. [Converting callbacks to promises](https://zellwk.com/blog/converting-callbacks-to-promises/)
 7. [Using async functions within useEffect](https://devtrium.com/posts/async-functions-useeffect)
+8. [Destructuring first few items from an array](https://www.freecodecamp.org/news/how-to-destructure-an-array-in-javascript/)
+9. [Customizing file upload button / ```<input type="file" />```](https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8)
