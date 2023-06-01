@@ -2,6 +2,10 @@
 
 An experiment in text highlighting, recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html). Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
 
+## Usage
+
+Visit the website to play around with the sample text and image provided. Alternatively, provide your own.
+
 ## Development
 
 ```bash
@@ -23,3 +27,5 @@ npm run dev
 3. [Passing functions as props in React + TypeScript](https://stackoverflow.com/questions/68895112/how-to-pass-function-as-a-prop-in-react-typescript)
 4. [Client components and ```"use client"``` directive in Next.js](https://stackoverflow.com/questions/74965849/youre-importing-a-component-that-needs-usestate-it-only-works-in-a-client-comp)
 5. [Showing leading and trailing whitespace in HTML](https://stackoverflow.com/questions/38051561/show-white-space-at-the-beginning-of-a-text-in-html)
+6. [Converting callbacks to promises](https://zellwk.com/blog/converting-callbacks-to-promises/)
+7. [Using async functions within useEffect](https://devtrium.com/posts/async-functions-useeffect)
