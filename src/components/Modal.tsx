@@ -1,16 +1,27 @@
+/*
+ * This file contains the component for displaying a modal, allowing users
+ * to provide their own text to display or change the image source and text
+ * styling. Also allows users to change the scale of the image and download
+ * the page as a standalone HTML file with its own internal stylesheet.
+ *
+ */
+
 "use client";
 
-import React, { ChangeEvent, useState, useRef } from "react";
+import React, { ChangeEvent, useState, useRef, useMemo } from "react";
+import ReactSlider from "react-slider";
 import sampleText from "@/samples/sampleText";
 import styles from "@/styles/modal.module.css";
+import { debounce } from "lodash";
 import { ModalProps, TextStyle } from "@/interfaces/";
 
 const Modal: React.FC<ModalProps> = ({
   setText,
-  setImageSrc,
+  setImgSrc,
   setTextStyle,
+  setImgScale,
+  imgScale,
   loading,
-  filesURL,
 }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [textInput, setTextInput] = useState<string>("");
@@ -26,15 +37,23 @@ const Modal: React.FC<ModalProps> = ({
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => setImageSrc(reader.result as string);
+      reader.onload = () => setImgSrc(reader.result as string);
       reader.readAsDataURL(file);
     }
   }
 
-  function updateText(e: any) {
-    e.preventDefault();
-    if (textInput !== "") setText(textInput);
+  function handleTextInput(e: any) {
+    setTextInput(e.target.value);
+    debouncedChangeHandler(e.target.value);
   }
+
+  const debouncedChangeHandler = useMemo(
+    () =>
+      debounce((value) => {
+        setText(value);
+      }, 400),
+    []
+  );
 
   function updateTextStyle(textStyle: string) {
     switch (textStyle) {
@@ -52,39 +71,56 @@ const Modal: React.FC<ModalProps> = ({
         break;
     }
   }
-  
+
   const handleClick = (e: any) => {
     e.preventDefault();
     hiddenFileInput.current?.click();
   };
 
-  function getStaticFiles(e: any) {
+  function generateHTML(e: any) {
     e.preventDefault();
 
-    // Create a link element to download the CSS file
-    const linkElement = document.createElement("a");
-    linkElement.href = filesURL;
-    linkElement.download = "pixels.css";
+    const html: Document = document.implementation.createHTMLDocument("yop");
+    const styles: HTMLElement | null = document.getElementById("styles");
+    const body: HTMLElement | null = document.getElementById("textBlock");
 
-    // Simulate a click event to trigger the download
-    linkElement.click();
+    var meta = document.createElement("meta");
+    meta.httpEquiv = "Content-type";
+    meta.content = "text/html; charset=UTF-8";
 
-    const htmlBlob = new Blob([document.documentElement.outerHTML], {
+    if (styles) {
+      html.head.append(styles.cloneNode(true));
+    }
+    if (body) {
+      html.body.append(body.cloneNode(true));
+    }
+    html.head.append(meta);
+
+    const htmlBlob = new Blob([html.documentElement.outerHTML], {
       type: "text/html",
     });
     const htmlURL = URL.createObjectURL(htmlBlob);
-    const linkElement2 = document.createElement("a");
-    linkElement2.href = htmlURL;
-    linkElement2.download = "index.html";
-
-    // Simulate a click event to trigger the download
-    linkElement2.click();
+    const link = document.createElement("a");
+    link.href = htmlURL;
+    link.download = "index.html";
+    link.click();
   }
 
   return (
     <>
       <button className={styles.modalToggle} onClick={toggleModal}>
-        i
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          className={styles.icon}
+        >
+          <path
+            fill-rule="evenodd"
+            d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
+            clip-rule="evenodd"
+          />
+        </svg>
       </button>
       {modalOpen && (
         <div className={styles.modalContainer}>
@@ -108,29 +144,37 @@ const Modal: React.FC<ModalProps> = ({
               rows={4}
               cols={50}
               value={textInput}
-              onChange={(e) => setTextInput(e.target.value)}
+              onChange={handleTextInput}
             />
             <select
               id="dropdown"
+              className={styles.select}
               onChange={(e) => updateTextStyle(e.target.value)}
             >
-              <option value="transparent">Transparent</option>
+              <option value="transparent" selected>
+                Transparent
+              </option>
               <option value="inverse">Inverted</option>
               <option value="veiled">Veiled</option>
             </select>
+            <ReactSlider
+              onAfterChange={(e, i) => setImgScale(e)}
+              onSliderClick={(e) => setImgScale(e)}
+              min={30}
+              max={180}
+              defaultValue={imgScale}
+              className={styles.slider}
+              markClassName={styles.mark}
+              thumbClassName={styles.thumb}
+              trackClassName={styles.track}
+              renderThumb={(props) => <div {...props}></div>}
+            />
             <button
               className={styles.modalButton}
-              onClick={(e) => updateText(e)}
+              onClick={(e) => generateHTML(e)}
               disabled={loading ? true : false}
             >
-              Update text
-            </button>
-            <button
-              className={styles.modalButton}
-              onClick={(e) => getStaticFiles(e)}
-              disabled={loading ? true : false}
-            >
-              Download static files
+              Download HTML file
             </button>
           </form>
         </div>
