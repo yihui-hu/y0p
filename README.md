@@ -1,7 +1,7 @@
 # yop
 
 A small, silly experiment in text highlighting, recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html).  
-Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
+Font in use is the unlicensed, trial version of [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
 
 ## Usage
 
