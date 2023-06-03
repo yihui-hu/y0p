@@ -88,12 +88,8 @@ const Modal: React.FC<ModalProps> = ({
     meta.httpEquiv = "Content-type";
     meta.content = "text/html; charset=UTF-8";
 
-    if (styles) {
-      html.head.append(styles.cloneNode(true));
-    }
-    if (body) {
-      html.body.append(body.cloneNode(true));
-    }
+    if (styles) html.head.append(styles.cloneNode(true));
+    if (body) html.body.append(body.cloneNode(true));
     html.head.append(meta);
 
     const htmlBlob = new Blob([html.documentElement.outerHTML], {
@@ -140,7 +136,7 @@ const Modal: React.FC<ModalProps> = ({
             />
             <textarea
               className={styles.modalInput}
-              placeholder={sampleText.slice(0, 800) + "..."}
+              placeholder={sampleText.slice(0, 750) + "..."}
               rows={4}
               cols={50}
               value={textInput}
@@ -151,9 +147,7 @@ const Modal: React.FC<ModalProps> = ({
               className={styles.select}
               onChange={(e) => updateTextStyle(e.target.value)}
             >
-              <option value="transparent" selected>
-                Transparent
-              </option>
+              <option value="transparent" selected>Transparent</option>
               <option value="inverse">Inverted</option>
               <option value="veiled">Veiled</option>
             </select>
