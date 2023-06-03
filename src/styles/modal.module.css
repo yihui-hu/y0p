@@ -12,6 +12,11 @@
   display: grid;
   place-items: center;
   align-items: center;
+  transition: 0.2s ease;
+}
+
+.modalToggle:hover {
+  transform: rotate(180deg);
 }
 
 .icon {
