@@ -1,7 +1,10 @@
 # yop
 
 A small, silly experiment in text highlighting, recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html).  
-Font in use is the unlicensed, trial version of [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
+
+- Sample image in use is Pompeo Batoni's [Allegory of Peace and War](https://www.artic.edu/artworks/149778/allegory-of-peace-and-war) (1776).
+- Sample text in use is an excerpt from John E. Gedo's [article](https://www.jstor.org/stable/889548) on the artwork.
+- Font in use is the unlicensed, trial version of [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
 
 ## Usage
 
