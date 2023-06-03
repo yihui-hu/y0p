@@ -1,6 +1,6 @@
 # yop
 
-An experiment in text highlighting, recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html).  
+A small, silly experiment in text highlighting[^1], recreation of [https://fichtre.net/yop.html](https://fichtre.net/yop.html).  
 Font in use is [Pantasia](https://counter-forms.com/typefaces/pantasia) by [Wei Huang](https://weiweihuanghuang.github.io/).
 
 ## Usage
@@ -37,3 +37,5 @@ npm run dev
     - *Debouncing* – delaying the first process for a given amount of time to see if user performs another action; if they do, cancel first action and work on second one
     - *Throttling* – preventing second process from happening by making sure function can only run once in a given interval
 11. [Lodash debouncing with text input](https://stackoverflow.com/questions/36294134/lodash-debounce-with-react-input)
+
+[^1]: Not actually pushing the boundaries of human communication on the web through highlighting text.
