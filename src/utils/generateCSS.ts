@@ -1,12 +1,13 @@
-import { Pixel, TextStyle } from "@/interfaces";
-import { Dispatch, SetStateAction } from "react";
+/*
+ * This file generates CSS rules based on the source image (i.e. an array of
+ * pixel colors) and a text style, and appends them to the head of the HTML document.
+ *
+ */
 
-const generateCSS = (
-  pixels: Pixel[],
-  textStyle: TextStyle,
-  setFilesURL: Dispatch<SetStateAction<string>>
-): Promise<void> => {
-  return new Promise((resolve, reject) => {
+import { Pixel, TextStyle } from "@/interfaces";
+
+const generateCSS = (pixels: Pixel[], textStyle: TextStyle): Promise<void> => {
+  return new Promise((resolve) => {
     const uniqueColors = new Set<string>();
 
     pixels.forEach((p) => {
@@ -15,16 +16,23 @@ const generateCSS = (
     });
 
     const colorsArray = Array.from(uniqueColors);
-    const cssRules = generateCSSWithTextStyle(colorsArray, textStyle);
+    let cssRules = generateCSSWithTextStyle(colorsArray, textStyle);
+    cssRules += ` body { 
+      font-family: monospace;   
+      white-space: pre;
+      font-size: 12px;
+      margin-top: 10px;
+    }`;
 
-    // Create stylesheet and append to <head> of document
-    const styleElement = document.createElement("style");
-    styleElement.id = "styles";
-    styleElement.textContent = cssRules;
-    document.head.appendChild(styleElement);
-
-    // Create static file
-    generateCSSFile(cssRules, setFilesURL);
+    const stylesElement = document.getElementById("styles");
+    if (stylesElement) {
+      stylesElement.textContent = cssRules;
+    } else {
+      const styleElement = document.createElement("style");
+      styleElement.id = "styles";
+      styleElement.textContent = cssRules;
+      document.head.appendChild(styleElement);
+    }
 
     resolve();
   });
@@ -36,7 +44,7 @@ const generateCSSWithTextStyle = (
 ) => {
   if (textStyle == TextStyle.INVERTED) {
     return colorsArray
-      .map((pixel, index) => {
+      .map((pixel) => {
         const splitPixel = pixel.split("-");
         const [p, r, g, b] = splitPixel;
         const r_complement = (255 - parseInt(r)).toString();
@@ -50,7 +58,7 @@ const generateCSSWithTextStyle = (
       .join("\n");
   } else if (textStyle == TextStyle.VEILED) {
     return colorsArray
-      .map((pixel, index) => {
+      .map((pixel) => {
         const splitPixel = pixel.split("-");
         const [p, r, g, b] = splitPixel;
         return `.p-${r}-${g}-${b}::selection { 
@@ -61,7 +69,7 @@ const generateCSSWithTextStyle = (
       .join("\n");
   } else {
     return colorsArray
-      .map((pixel, index) => {
+      .map((pixel) => {
         const splitPixel = pixel.split("-");
         const [p, r, g, b] = splitPixel;
         return `.p-${r}-${g}-${b}::selection { 
@@ -71,16 +79,6 @@ const generateCSSWithTextStyle = (
       })
       .join("\n");
   }
-};
-
-const generateCSSFile = (
-  cssRules: string,
-  setFilesURL: Dispatch<SetStateAction<string>>
-) => {
-  // Create a blob with the CSS content
-  const cssBlob = new Blob([cssRules], { type: "text/css" });
-  const cssURL = URL.createObjectURL(cssBlob);
-  setFilesURL(cssURL);
 };
 
 export default generateCSS;
