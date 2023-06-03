@@ -9,6 +9,15 @@
   color: black;
   background-color: #EFEFEF;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  align-items: center;
+}
+
+.icon {
+  width: 14x;
+  height: 14px;
+  color: rgb(180, 180, 180);
 }
 
 .modalContainer {
@@ -30,7 +39,7 @@
 .modalInput {
   font-family: "Arial", "Helvetica", sans-serif;
   box-sizing: border-box;
-  width: 300px;
+  width: 100%;
   height: 300px;
   min-height: 300px;
   max-height: 600px;
@@ -44,7 +53,12 @@
   color: rgb(195, 195, 195);
 }
 
+.select {
+  width: 100%;
+}
+
 .modalButton {
+  width: 100%;
   padding-block: 3px;
   border: 1px solid rgb(195, 195, 195);
   background-color: #EFEFEF;
@@ -53,4 +67,26 @@
 
 .modalButton:hover {
   border: 1px solid rgb(170, 170, 170);
+}
+
+.slider {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.thumb {
+  background: white;
+  border: 1.5px solid rgb(195, 195, 195);
+  border-radius: 100%;
+  display: block;
+  width: 10px;
+  height: 10px;
+  bottom: -8px;
+}
+
+.track {
+  background: #EFEFEF;
+  height: 4px;
 }

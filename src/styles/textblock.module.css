@@ -12,7 +12,7 @@
 }
 
 .text {
-  font-family: "PantasiaUnlicensedTrial";
+  font-family: "PantasiaUnlicensedTrial", monospace;
   font-size: 12px;
   margin-top: 10px;
 }
