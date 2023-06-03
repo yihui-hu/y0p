@@ -19,7 +19,7 @@
 
 ## Documentation
 - [x] ```interfaces/index.ts```
-- [ ] ```utils/*```
+- [x] ```utils/*```
 
 ## Experimentation
 
